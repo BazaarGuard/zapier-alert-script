@@ -49,7 +49,15 @@ Now, *instead* of clicking the orange "Continue", mouse over to the sidebar and 
 
 #### Forward the alerts
 
-From here you can choose from many apps to receive the alerts. Examples include SMS, email, and Slack. Configuration is different for all of them, but be sure to include data from the Run Javascript trigger **from a field called Messages**. This is where the OpenBazaar alerts are stored, formatted as lines of text.
+From here you can choose from many apps to receive the alerts. Examples include SMS, email, and Slack. Configuration is different for all of them, but be sure to include data from the Run Javascript trigger **from a field called Messages**. This is where the OpenBazaar alerts are stored, formatted as lines of text, like so:
+
+    @bigmouth: [5 more] "Are you listening?" (0 min ago)
+    @rainman: "cool store" (2 min ago)
+    6432c6…: "Where's my item?" (3 min ago)
+
+    Follow by @rainman (3 min ago)
+    New order of Lounge Chair by 4703a5… (5 min ago)
+
 
 When finished configuring the action, give it a name and hit the ON switch. Zapier will run the script every five minutes. If your server has any new, unread chat messages or notifications, they will be sent to your service of choice. Otherwise nothing will happen.
 
