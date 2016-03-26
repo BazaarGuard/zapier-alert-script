@@ -2,6 +2,18 @@ var host = "http://XXX.XXX.XXX.XXX:18469/api/v1";
 var username = 'XXXXXXXX';
 var password = 'XXXXXXXX';
 
+var allowedAlertTypes = {
+   'chat': true,
+   'follow': true,
+   'rating received': true,
+   'order confirmation': true,
+   'payment received': true,
+   'refund': true,
+   'dispute_open': true,
+   'dispute_close': true,
+   'new order': true
+};
+
 var ZAPIER = !(typeof fetch == 'undefined');
 var req = function(x) {
       return require(x); // Zapier agressively blocks require('literal')
@@ -60,7 +72,7 @@ var get_notifications = function(session_cookie) {
             for (var jn in json.notifications) {
                var n = json.notifications[jn];
                var fresh = n.timestamp > model.prevNotiTime;
-               if (!n.read && fresh) {
+               if (!n.read && fresh && allowedAlertTypes[n.type]) {
                   message += message ? '\n' : '';
                   message += (n.type.charAt(0).toUpperCase() + n.type.slice(1))
                            + (n.title ? (' of ' + n.title) : '')
@@ -93,7 +105,7 @@ var get_chat_conversations = function(session_cookie) {
          for (var j in json) {
             var c = json[j];
             var fresh = c.timestamp > model.prevMessTime;
-            if (c.unread && fresh) {
+            if (c.unread && fresh && allowedAlertTypes['chat']) {
                message += message ? '\n' : '';
                message += (c.handle ? c.handle : (c.guid.slice(0, 6) + '…')) + ':'
                         + ((c.unread > 1) ? (' [' + (c.unread - 1) + ' earlier unread] &') : '')
